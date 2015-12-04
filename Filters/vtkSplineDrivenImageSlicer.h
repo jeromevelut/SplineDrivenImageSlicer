@@ -63,6 +63,10 @@ public:
    vtkGetMacro( ProbeInput, vtkIdType );
    vtkBooleanMacro( ProbeInput, vtkIdType );
 
+   vtkSetMacro( UseSliceSpacing, bool );
+   vtkGetMacro( UseSliceSpacing, bool );
+   vtkBooleanMacro( UseSliceSpacing, bool );
+
    vtkSetMacro( Incidence, double );
    vtkGetMacro( Incidence, double );
 
@@ -107,6 +111,7 @@ private:
    vtkIdType OffsetPoint; //!< Id of the point where the reslicer proceed
    vtkIdType OffsetLine; //!< Id of the line cell where to get the reslice center
    vtkIdType ProbeInput; //!< If true, the output plane (2nd output probes the input image)
+   bool UseSliceSpacing; //!< If true, the resolution of the output plane is taken from SliceExtent
 };
 
 #endif //__vtkSplineDrivenImageSlicer_h__
