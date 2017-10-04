@@ -1,8 +1,6 @@
 ### Find VTK
-INCLUDE (${CMAKE_ROOT}/Modules/FindVTK.cmake)
-IF (USE_VTK_FILE)
-  INCLUDE(${USE_VTK_FILE})
-ENDIF (USE_VTK_FILE)
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
 
 ADD_EXECUTABLE( testFrenetSerretFrame testFrenetSerretFrame.cxx
               )
