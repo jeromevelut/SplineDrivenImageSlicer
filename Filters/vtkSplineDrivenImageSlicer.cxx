@@ -35,6 +35,7 @@ vtkSplineDrivenImageSlicer::vtkSplineDrivenImageSlicer( )
    this->OffsetPoint = 0;
    this->OffsetLine = 0;
    this->ProbeInput = 0;
+   this->UseSliceSpacing = false;
    
    this->SetNumberOfInputPorts( 2 );
    this->SetNumberOfOutputPorts( 2 );
@@ -216,8 +217,9 @@ int vtkSplineDrivenImageSlicer::RequestData(
 	 plane->SetOrigin(planeOrigin);
 	 plane->SetPoint1(planePoint1);
 	 plane->SetPoint2(planePoint2);
-	 plane->SetResolution(this->SliceExtent[0],
-                              this->SliceExtent[1]);
+
+	 this->UseSliceSpacing ? plane->SetResolution(this->SliceExtent[0], this->SliceExtent[1]) : plane->SetResolution(1,1);
+
 	 plane->Update();
 	 
          if( this->ProbeInput == 1 )

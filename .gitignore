@@ -1,0 +1,15 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/config/applicationhost.config
+/.vs/SplineDrivenImageSlicer/v15/.suo
+/.vs/SplineDrivenImageSlicer/v15/Browse.VC.db
+/.vs/SRC/v15/.suo
+/.vs/SRC/v15/Browse.VC.db
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/tasks.vs.json
+/.vs/VSWorkspaceState.json
+/CMakeSettings.json
+/DartConfiguration.tcl

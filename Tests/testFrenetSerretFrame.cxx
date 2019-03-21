@@ -29,50 +29,50 @@
 #include <vtkMath.h>
 #include <vtkSmartPointer.h>
 
-int TestArray( vtkPolyDataAlgorithm* algo,const char* name )
+int TestArray(vtkPolyDataAlgorithm* algo, const char* name)
 {
-   vtkDoubleArray* array = 0x0;
-   array = static_cast<vtkDoubleArray*>(algo->GetOutput()->GetPointData()->GetArray( name ));
-   if( !array )
-      return( EXIT_FAILURE );
-   if( array->GetValueRange(0)[0] != -1 ) // Range of X component
-      return( EXIT_FAILURE );
+	vtkDoubleArray* array = 0x0;
+	array = static_cast<vtkDoubleArray*>(algo->GetOutput()->GetPointData()->GetArray(name));
+	if (!array)
+		return(EXIT_FAILURE);
+	if (array->GetValueRange(0)[0] != -1) // Range of X component
+		return(EXIT_FAILURE);
 
-   if( array->GetValueRange(0)[1] != 1 )
-      return( EXIT_FAILURE );
+	if (array->GetValueRange(0)[1] != 1)
+		return(EXIT_FAILURE);
 
-   return( EXIT_SUCCESS );
+	return(EXIT_SUCCESS);
 }
 
-int main(int argc, char** argv )
+int main(int argc, char** argv)
 {
-    // Generate a circle:
-    vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New( );
-    vtkSmartPointer<vtkCellArray> line = vtkSmartPointer<vtkCellArray>::New( );
-    line->InsertNextCell( 360 );
-    vtkIdType ptId;
-    for( int i = 0; i < 360; i++)
-    {
-       ptId = points->InsertNextPoint( cos( i*2*vtkMath::DoublePi()/360.0 ), sin( i*2*vtkMath::DoublePi()/360.0 ), 0 );
-       line->InsertCellPoint( ptId );
-    }
+	// Generate a circle:
+	vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+	vtkSmartPointer<vtkCellArray> line = vtkSmartPointer<vtkCellArray>::New();
+	line->InsertNextCell(360);
+	vtkIdType ptId;
+	for (int i = 0; i < 360; i++)
+	{
+		ptId = points->InsertNextPoint(cos(i * 2 * vtkMath::Pi() / 360.0), sin(i * 2 * vtkMath::Pi() / 360.0), 0);
+		line->InsertCellPoint(ptId);
+	}
 
 
-    vtkSmartPointer<vtkPolyData> circle = vtkSmartPointer<vtkPolyData>::New( );
-    circle->SetLines( line );
-    circle->SetPoints( points );
-    
-    // tested object
-    vtkSmartPointer<vtkFrenetSerretFrame> frenetSerretFilter;
-    frenetSerretFilter = vtkSmartPointer<vtkFrenetSerretFrame>::New( );
-    
-    frenetSerretFilter->SetInputData( circle );
-    frenetSerretFilter->Update( );
+	vtkSmartPointer<vtkPolyData> circle = vtkSmartPointer<vtkPolyData>::New();
+	circle->SetLines(line);
+	circle->SetPoints(points);
 
-    // Roughly check the result
-    if( TestArray( frenetSerretFilter, "FSTangents" ) == EXIT_FAILURE )
-        return( EXIT_FAILURE );
+	// tested object
+	vtkSmartPointer<vtkFrenetSerretFrame> frenetSerretFilter;
+	frenetSerretFilter = vtkSmartPointer<vtkFrenetSerretFrame>::New();
 
-    return( EXIT_SUCCESS );
+	frenetSerretFilter->SetInputData(circle);
+	frenetSerretFilter->Update();
+
+	// Roughly check the result
+	if (TestArray(frenetSerretFilter, "FSTangents") == EXIT_FAILURE)
+		return(EXIT_FAILURE);
+
+	return(EXIT_SUCCESS);
 }
 
